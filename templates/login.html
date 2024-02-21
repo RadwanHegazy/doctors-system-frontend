@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>احجز مع الدكتور</title>
+    <link rel="stylesheet" href="{% static 'static/index.css' %}">
+    <link rel="stylesheet" href="{% static 'static/base.css' %}">
+    <link rel="stylesheet" href="{% static 'static/login.css' %}">
+</head>
+<body>
+    
+
+    <img src="{% static 'images/bg.png' %}" alt="" class="bg">
+
+    <div class="container">
+
+        <div class="up">
+            <a href="{% url 'home' %}">الرجوع </a>
+        </div>
+
+        <div class="docs">
+
+            <form method="POST" >
+                {% csrf_token %}
+                <input type="email" name="email" required placeholder="البريد الالكتروني">
+                <input type="password" name="password" required placeholder="كلمة المرور">
+                <button type="submit">تسجيل</button>
+            </form>
+        
+        </div>
+    
+    </div>
+
+
+
+    <script>
+        if ("{{error}}"){
+            alert("{{error}}")
+        }
+    </script>
+</body>
+</html>

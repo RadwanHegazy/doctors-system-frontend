@@ -1,0 +1,119 @@
+
+.container {
+    position: relative;
+    overflow: hidden;
+}
+.docs {
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+
+.docs .clients {
+    width: 100%;
+    padding: 1rem;
+}
+
+.clients .client {
+    background-color: #C8C8C833;
+    width: 100%;
+    max-height: 250px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 30px;
+}
+
+
+.client img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    padding: 12px;
+    background-color: #FA7268;
+    box-shadow: 0px 0px 30px #FA7268;
+}
+
+
+.client .wrapper button {
+    width: auto;
+    padding: 6px 12px;
+    height: 45px;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    color: #fff;
+    font-family: var(--var-font);
+    background-color: #FA7268;
+    cursor: pointer;
+}
+
+.client .wrapper {
+    color: #fff;
+    font-family: var(--var-font);
+}
+
+
+.client .wrapper textarea {
+    text-align: right;
+    padding: 12px ;
+    border: none;
+    outline: none;
+    resize: none;
+    max-height: 150px;
+    border-radius: 12px;
+    background-color: #4B494924;
+    font-family: var(--var-font);
+}
+
+.client a {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    background-color: #14D286;
+    padding: 1rem 2rem;
+    cursor: pointer;
+}
+
+.container .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* transform: translate(-50%,-50%); */
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: #00000030;
+    backdrop-filter: blur(30px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.overlay .qr {
+    width: 300px;
+    height: 300px;
+    background-color: #fff;
+}
+
+.container .overlay.view{
+    display: flex;
+}
+
+.overlay button {
+    font-family: var(--var-font);
+    width: 100px;
+    height: 45px;
+    color: #fff;
+    background-color: crimson;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+}

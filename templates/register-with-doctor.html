@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {{doctor.full_name}} احجز مع الدكتور</title>
+    <link rel="stylesheet" href="{% static 'static/index.css' %}">
+    <link rel="stylesheet" href="{% static 'static/base.css' %}">
+    <link rel="stylesheet" href="{% static 'static/register-with-doctor.css' %}">
+</head>
+<body>
+    
+
+    <img src="{% static 'images/bg.png' %}" alt="" class="bg">
+
+    <div class="container">
+
+        <div class="up">
+            <a href="{% url 'home' %}">الرجوع </a>
+            
+
+            <div class="counter">
+                
+                <div class="count current">
+                    <p>الحالات الحالية</p>
+                    <span>{{doctor.unchecked_clients}}</span>
+                </div>
+                
+                <div class="count done">
+                    <p>الحالات المفحوصة</p>
+                    <span>{{doctor.checked_clients}}</span>
+                </div>
+
+                
+            </div>
+
+            <div class="docInfo">
+                <img src="{{main_url}}{{doctor.picture}}" alt="">
+                <div class="text">
+                    <p>{{doctor.full_name}}</p>
+                    <p>التخصص : {{doctor.department.name}}</p>
+                </div>
+            </div>
+
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="docs">
+            {% csrf_token %}
+            <div class="img">
+                <img id="ImgView" src="{% static 'images/user.png' %}" alt="">
+                <button id="ImgBtn" type="button">اضف صورتك</button>
+                <input type="file" id="ImgInput" name="picture" hidden>
+            </div>
+
+            <div class="info">
+                <input type="text" name="full_name" required placeholder="اسمك بالكامل">
+                <input type="email" name="email" required placeholder="البريد الالكتروني">
+                <input type="number" name='age' required placeholder="العمر">
+                
+                <select required name="gender" id="">
+                    <option value="#">النوع</option>
+                    <option value="male">ذكر</option>
+                    <option value="female">انثي</option>
+                </select>
+
+                <textarea required name="description" placeholder="وصف لحالتك الصحية" id="" cols="30" rows="10"></textarea>
+                
+                <button type="submit">احجز الان </button>
+            </div>
+
+        </form>
+    
+    </div>
+
+
+    <script>
+        var imgView = document.getElementById('ImgView');
+        var imgBtn = document.getElementById('ImgBtn');
+        var imgInput = document.getElementById('ImgInput');
+
+        imgBtn.addEventListener('click',function(){
+            imgInput.click()
+        })
+
+        imgInput.addEventListener('change',function(e){
+            imgView.src = URL.createObjectURL(e.target.files[0])
+        })
+
+        var ticket_url = "{{ticket}}";
+        if (ticket_url) {
+            alert('جاري انشاء التذكرة')
+            ticket_url = "{{main_url}}{{ticket}}";
+            
+            async function downloadImage(
+            imageSrc,
+            nameOfDownload = 'ticket.png',
+            ) {
+            const response = await fetch(imageSrc);
+
+            const blobImage = await response.blob();
+
+            const href = URL.createObjectURL(blobImage);
+
+            const anchorElement = document.createElement('a');
+            anchorElement.href = href;
+            anchorElement.download = nameOfDownload;
+
+            document.body.appendChild(anchorElement);
+            anchorElement.click();
+
+            document.body.removeChild(anchorElement);
+            window.URL.revokeObjectURL(href);
+            }
+
+            downloadImage(
+                ticket_url,
+                'ticket.png',
+            )
+            
+
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>احجز مع الدكتور</title>
+    <link rel="stylesheet" href="{% static 'static/index.css' %}">
+    <link rel="stylesheet" href="{% static 'static/base.css' %}">
+    <link rel="stylesheet" href="{% static 'static/register-with-doctor.css' %}">
+    <link rel="stylesheet" href="{% static 'static/doc-profile.css' %}">
+    
+</head>
+<body>
+    
+
+    <img src="{% static 'images/bg.png' %}" alt="" class="bg">
+
+
+
+    <div class="container">
+        
+    <div class="overlay">
+        <div id="scanner" class="qr"></div>
+        <button>الغاء</button>
+    </div>
+
+        <div class="up">
+            <a href="{% url 'logout' %}">تسجيل الخروج </a>
+            
+
+            <div class="counter">
+                
+                <div class="count current">
+                    <p>الحالات الحالية</p>
+                    <span>{{c_user.unchecked_clients}}</span>
+                </div>
+                
+                <div class="count done">
+                    <p>الحالات المفحوصة</p>
+                    <span>{{c_user.checked_clients}}</span>
+                </div>
+
+                
+            </div>
+
+            <div class="docInfo">
+                <img src="{{main_url}}{{c_user.picture}}" alt="">
+                <div class="text">
+                    <p>{{c_user.full_name}}</p>
+                    <p>التخصص : {{c_user.department.name}}</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="docs">
+
+            <div class="clients">
+
+
+                {% for client in c_user.clients %}
+                    <div class="client">
+
+                        <div class="wrapper">
+                            <img src="{{main_url}}{{client.picture}}" alt="">
+                            <button class="checkTicketBtn" data-ticket="{{client.id}}">التأكد من صحة التذكرة</button>
+                        </div>
+        
+                        <div class="wrapper">
+                            <p>الاسم : {{client.full_name}}</p>
+                            <p>العمر : {{client.age}}</p>
+                            <p>النوع : {% if client.gender == 'male' %}ذكر{% else %}انثي{% endif %}</p>
+                        </div>
+        
+                        <div class="wrapper prob">
+                            <p>وصف المشكلة</p>
+                            <textarea name="" id="" cols="30" rows="10" readonly>{{client.description}}</textarea>
+                        </div>
+        
+                        <div class="wrapper">
+                            <a href="?check={{client.id}}">تم الفحص بنجاح</a>
+                        </div>
+                    
+                    </div>
+                {% endfor %}
+
+                
+
+            </div>
+
+        </div>
+    
+    </div>
+
+
+    <script src="{% static 'js/html5-qrcode.min.js' %}"></script>
+    <script>
+
+
+        let current_ticket;
+
+        function onScanSuccess(decodedText, decodedResult) {
+            // Handle on success condition with the decoded text or result.
+            var user_ticket_id = decodedText;
+            console.log(user_ticket_id)
+            
+            html5QrcodeScanner.clear();
+            overlay.classList.remove('view')
+
+            if (user_ticket_id == current_ticket) {
+                alert('التذكرة سليمة')
+            }else{
+                alert('التذكرة غير سليمة')
+            }
+            
+
+        }
+
+        var html5QrcodeScanner = new Html5QrcodeScanner(
+            "scanner", { fps: 10, qrbox: 200 });
+
+        var Btns = document.querySelectorAll('.checkTicketBtn');
+        var overlay = document.querySelector('.overlay');
+        var CancelBtn = overlay.querySelector('button');
+
+        Btns.forEach(btn=>{
+            btn.addEventListener('click',function(){
+                var ticket = btn.dataset.ticket;
+                current_ticket = ticket;
+                
+                overlay.classList.add('view');
+                
+                html5QrcodeScanner.render(onScanSuccess);
+                
+            })
+        })
+
+        CancelBtn.addEventListener('click',function(){
+            overlay.classList.remove('view');
+        })
+    </script>
+
+</body>
+</html>

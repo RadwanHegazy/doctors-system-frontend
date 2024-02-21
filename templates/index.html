@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الرئيسية</title>
+    <link rel="stylesheet" href="{% static 'static/index.css' %}">
+    <link rel="stylesheet" href="{% static 'static/base.css' %}">
+</head>
+<body>
+    
+
+    <img src="{% static 'images/bg.png' %}" alt="" class="bg">
+
+    <div class="container">
+        <div class="up">
+            <a href="{% url 'login' %}">تسجيل الدخول للاطباء </a>
+            <form method="GET" class="in">
+                <input type="text" name="search" value="{{current_search}}" placeholder="بحث عن طبيب">
+                <select name="department" id="">
+                    <option value="ALL" selected>الكل</option>
+                    {% for dep in departments %}
+                        {% if current_dep == dep.name %}
+                            <option selected value="{{dep.name}}">{{dep.name}}</option>
+                        {% else %}
+                            <option value="{{dep.name}}">{{dep.name}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <button type="submit">بحث</button>
+            </form>
+        </div>
+
+        <div class="docs">
+
+            {% if doctors %}
+                {% for doctor in doctors %}
+                    <div class="doctor">
+                        <div class="img-cont">
+                            <img src="{{main_url}}{{doctor.picture}}" alt="">
+                        </div>
+                        <p>{{doctor.full_name}}</p>
+                        <p>التخصص : {{doctor.department.name}}</p>
+                        <a href="{% url 'register_with_doc' doctor.id %}">احجز الان</a>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+    
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+
+
+
+.docInfo {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.docInfo img {
+    width: 80px;
+    height: 80px;
+    background-color: #FA7268;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0px 0px 30px #FA7268;
+}
+
+.docInfo .text {
+    display: flex;
+    font-family: var(--var-font);
+    flex-direction: column;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+}
+
+
+.up .counter {
+    display: flex;
+    gap: 30px;
+    flex-direction: row-reverse;
+}
+
+.up .counter .count {
+    width: 200px;
+    height: 60px;
+    font-family: var(--var-font);
+    color: #fff;
+    background-color: #C8C8C833;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+.count span {
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    font-size: 14px;
+    height: 40px;
+}
+.count.done span {
+    background-color: #14D286;
+}
+
+.count.current span {
+    background-color: #FA7268;
+}
+
+
+
+.docs {
+    display: flex;
+    flex-direction: column;
+}
+
+.docs div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.docs .img img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #FA7268;
+    padding: 1rem;
+    box-shadow: 0px 0px 30px #FA7268;
+    object-fit: contain;
+}
+
+.img button {
+    width: 120px;
+    height: 60px;
+    font-family: var(--var-font);
+    background-color: #FA7268;
+    color: #fff;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.docs .info {
+    gap: 3px;
+}
+
+.info input, .info select, .info textarea, .info button{
+    width: 300px;
+    direction: rtl;
+    padding: 6px 12px;
+    font-family: var(--var-font);
+    border: none;
+}
+
+.info input, .info select, .info textarea {
+    background-color: #36363624;
+    outline: none;
+}
+
+.info textarea {
+    resize: none;
+    height: 150px;
+}
+
+.info button {
+    color: #fff;
+    background-color: #14D286;
+    cursor: pointer;
+}
